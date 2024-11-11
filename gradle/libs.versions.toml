@@ -1,4 +1,7 @@
 [versions]
+android-targetSdk = "33"
+android-compileSdk = "33"
+android-minSdk = "21"
 kotlinVersion = "1.9.10"
 androidAppCompatVersion = "1.6.1"
 composeMaterialVersion = "1.4.1"
@@ -13,6 +16,7 @@ mokoPermissionsVersion = "0.18.1"
 composeJetBrainsVersion = "1.5.1"
 lifecycleRuntime = "2.6.1"
 composeUiVersion = "1.0.1"
+agpVersion = "7.4.2"
 
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -31,9 +35,14 @@ androidCoreTesting = { module = "androidx.arch.core:core-testing", version.ref =
 
 
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
-androidGradlePlugin = { module = "com.android.tools.build:gradle", version = "7.4.2" }
+androidGradlePlugin = { module = "com.android.tools.build:gradle", version = "agpVersion" }
 mokoGradlePlugin = { module = "dev.icerock.moko:moko-gradle-plugin", version = "0.2.0" }
-mobileMultiplatformGradlePlugin = { module = "dev.icerock:mobile-multiplatform", version = "0.14.2" }
 kotlinSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
 composeJetBrainsGradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composeJetBrainsVersion" }
 detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.22.0" }
+
+[plugins]
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
+android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+android-library = { id = "com.android.library", version.ref = "agpVersion" }
+android-application = { id = "com.android.application", version.ref = "agpVersion" }

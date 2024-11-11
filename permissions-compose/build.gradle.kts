@@ -1,27 +1,51 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 /*
  * Copyright 2019 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
-    id("dev.icerock.moko.gradle.multiplatform.mobile")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.android.library)
     id("dev.icerock.moko.gradle.publication")
     id("dev.icerock.moko.gradle.stub.javadoc")
     id("dev.icerock.moko.gradle.detekt")
     id("org.jetbrains.compose")
 }
-
+kotlin {
+    androidTarget()
+    jvm("desktop")
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    targetHierarchy.default()
+    iosSimulatorArm64()
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                api(projects.permissions)
+                api(compose.runtime)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.activity)
+                implementation(libs.composeUi)
+                implementation(libs.lifecycleRuntime)
+            }
+        }
+        val iosMain by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val desktopMain by getting
+    }
+}
 android {
     namespace = "dev.icerock.moko.permissions.compose"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 21
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
 }
 
-dependencies {
-    commonMainApi(projects.permissions)
-    commonMainApi(compose.runtime)
-    androidMainImplementation(libs.activity)
-    androidMainImplementation(libs.composeUi)
-    androidMainImplementation(libs.lifecycleRuntime)
-}

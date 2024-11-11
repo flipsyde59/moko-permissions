@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.icerockdev.library.SampleViewModel
+import com.icerockdev.sample.app.R
 import dev.icerock.moko.mvvm.dispatcher.eventsDispatcherOnMain
 import dev.icerock.moko.mvvm.getViewModel
 import dev.icerock.moko.permissions.DeniedAlwaysException
