@@ -323,11 +323,8 @@ class PermissionsControllerImpl(
                 Manifest.permission.ACTIVITY_RECOGNITION,
                 Manifest.permission.BODY_SENSORS
             )
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+        } else
             listOf(Manifest.permission.BODY_SENSORS)
-        } else {
-            emptyList()
-        }
 
     private fun remoteNotificationsPermissions() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

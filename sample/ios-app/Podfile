@@ -4,7 +4,7 @@ source 'https://cdn.cocoapods.org/'
 inhibit_all_warnings!
 
 use_frameworks!
-platform :ios, '12.0'
+platform :ios, '14.0'
 
 # workaround for https://github.com/CocoaPods/CocoaPods/issues/8073
 # need for correct invalidate of cache MultiPlatformLibrary.framework
@@ -13,5 +13,5 @@ install! 'cocoapods', :disable_input_output_paths => true
 target 'TestProj' do
   # MultiPlatformLibrary
   # для корректной установки фреймворка нужно сначала скомпилировать котлин библиотеку - compile-kotlin-framework.sh (в корневой директории репозитория)
-  pod 'MultiPlatformLibrary', :path => '../mpp-library'
+  pod 'mpp_library', :path => '../mpp-library'
 end

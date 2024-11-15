@@ -25,7 +25,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.icerockdev.library.SampleViewModel
 import dev.icerock.moko.mvvm.dispatcher.eventsDispatcherOnMain
 import dev.icerock.moko.mvvm.getViewModel
@@ -99,7 +98,7 @@ fun TestScreen(viewModel: SampleViewModel) {
         }
     }
 
-    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     LaunchedEffect(true) {
         viewModel.eventsDispatcher.bind(lifecycleOwner, eventsListener)
     }

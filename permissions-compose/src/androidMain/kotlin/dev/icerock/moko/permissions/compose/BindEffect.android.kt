@@ -5,18 +5,17 @@
 package dev.icerock.moko.permissions.compose
 
 import android.content.Context
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.activity.ComponentActivity
 import androidx.lifecycle.LifecycleOwner
 import dev.icerock.moko.permissions.PermissionsController
 
 @Suppress("FunctionNaming")
 @Composable
 actual fun BindEffect(permissionsController: PermissionsController) {
-    val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleOwner: LifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     val context: Context = LocalContext.current
 
     LaunchedEffect(permissionsController, lifecycleOwner, context) {

@@ -6,6 +6,10 @@ plugins {
     alias(libs.plugins.android).apply(false)
     alias(libs.plugins.android.library).apply(false)
     alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.vanniktech).apply(false)
+    alias(libs.plugins.compose).apply(false)
+    alias(libs.plugins.native.cocoapods).apply(false)
+    alias(libs.plugins.kotlinx.serialization).apply(false)
 }
 buildscript {
     repositories {
@@ -13,19 +17,10 @@ buildscript {
         google()
         gradlePluginPortal()
     }
-
-    dependencies {
-        classpath(libs.kotlinGradlePlugin)
-        classpath(libs.androidGradlePlugin)
-        classpath(libs.mokoGradlePlugin)
-        classpath(libs.kotlinSerializationGradlePlugin)
-        classpath(libs.composeJetBrainsGradlePlugin)
-        classpath(libs.detektGradlePlugin)
-    }
 }
 val mokoVersion = libs.versions.mokoPermissionsVersion.get()
 allprojects {
-    group = "flipsyde59.moko"
+    group = "io.github.flipsyde59"
     version = mokoVersion
 }
 

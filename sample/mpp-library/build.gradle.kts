@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 /*
  * Copyright 2019 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.
  */
@@ -7,21 +5,19 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("dev.icerock.mobile.multiplatform.ios-framework")
-    id("dev.icerock.moko.gradle.detekt")
+    alias(libs.plugins.native.cocoapods)
 }
 kotlin {
     androidTarget()
     jvm("desktop")
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     iosSimulatorArm64()
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(libs.coroutines)
                 api(libs.mokoMvvmCore)
-                api(projects.permissions)
+                api(project(":permissions"))
             }
         }
         val androidMain by getting {
@@ -37,18 +33,33 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(libs.mokoMvvmTest)
-                implementation(projects.permissionsTest)
+                implementation(project(":permissions-test"))
             }
+        }
+    }
+    cocoapods {
+        version = "0.10.0"
+        summary = "Some summary for test"
+        homepage = "Link to homepage"
+        framework {
+            baseName = "MppLibrary"
+            export(project(":permissions"))
+            export(libs.mokoMvvmCore)
         }
     }
 }
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+    namespace = "com.icerockdev.library"
 }
-framework {
-    export(projects.permissions)
-    export(libs.mokoMvvmCore)
-}
+

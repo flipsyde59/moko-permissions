@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/root_view"
-    tools:context=".MainActivity">
+    tools:context="com.icerockdev.MainActivity">
 
     <Button
         android:id="@+id/button"

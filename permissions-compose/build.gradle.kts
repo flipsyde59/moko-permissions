@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import com.vanniktech.maven.publish.SonatypeHost
 
 /*
  * Copyright 2019 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.
@@ -7,20 +7,18 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("dev.icerock.moko.gradle.stub.javadoc")
-    id("dev.icerock.moko.gradle.detekt")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.vanniktech)
+    alias(libs.plugins.compose)
 }
 kotlin {
     androidTarget()
     jvm("desktop")
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     iosSimulatorArm64()
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.permissions)
+                api(project(":permissions"))
                 api(compose.runtime)
             }
         }
@@ -51,7 +49,59 @@ publishing {
         }
     }
 }
+mavenPublishing {
+    coordinates(
+        groupId = group.toString(),
+        artifactId = "moko.permissions.compose",
+        version = version.toString()
+    )
+    pom {
+        name.set("moko-permissions with desktop sourceSet")
+        description.set("Library for moko-permission with source set jvm('desktop')")
+        inceptionYear.set("2024")
+        url.set("https://github.com/flipsyde59/moko-permissions")
+
+        licenses {
+            license {
+                name.set("Apache")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0")
+            }
+        }
+
+        // Specify developer information
+        developers {
+            developer {
+                id.set("flipsyde59")
+                email.set("flipsyde59@yandex.ru")
+            }
+        }
+
+        // Specify SCM information
+        scm {
+            url.set("https://github.com/flipsyde59/moko-permissions")
+        }
+    }
+
+    // Configure publishing to Maven Central
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    // Enable GPG signing for all publications
+    signAllPublications()
+}
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        compose = true
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.12"
+    }
     namespace = "dev.icerock.moko.permissions.compose"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 

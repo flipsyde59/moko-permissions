@@ -1,22 +1,23 @@
 [versions]
-android-targetSdk = "33"
-android-compileSdk = "33"
+android-targetSdk = "34"
+android-compileSdk = "34"
 android-minSdk = "21"
-kotlinVersion = "1.9.10"
-androidAppCompatVersion = "1.6.1"
-composeMaterialVersion = "1.4.1"
-composeActivityVersion = "1.7.0"
-activityVersion = "1.7.0"
-materialDesignVersion = "1.8.0"
+kotlinVersion = "1.9.25"
+androidAppCompatVersion = "1.7.0"
+composeMaterialVersion = "1.7.5"
+composeActivityVersion = "1.9.3"
+activityVersion = "1.9.3"
+materialDesignVersion = "1.12.0"
 androidLifecycleVersion = "2.2.0"
-androidCoreTestingVersion = "2.2.0"
-coroutinesVersion = "1.6.4"
+#androidCoreTestingVersion = "2.2.0"
+coroutinesVersion = "1.8.0"
 mokoMvvmVersion = "0.16.0"
-mokoPermissionsVersion = "0.18.1-desktop-2"
-composeJetBrainsVersion = "1.5.1"
-lifecycleRuntime = "2.6.1"
-composeUiVersion = "1.0.1"
-agpVersion = "7.4.2"
+mokoPermissionsVersion = "0.18.1-desktop-3"
+composeJetBrainsVersion = "1.7.0"
+lifecycleRuntime = "2.8.7"
+composeUiVersion = "1.7.5"
+agpVersion = "8.1.4"
+vanniktechVersion = "0.29.0"
 
 [libraries]
 appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
@@ -29,20 +30,18 @@ lifecycle = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = 
 lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
 mokoMvvmCore = { module = "dev.icerock.moko:mvvm-core", version.ref = "mokoMvvmVersion" }
+mvvmCoreAndroid = { module = "dev.icerock.moko:mvvm-core-android", version.ref = "mokoMvvmVersion" }
 mokoMvvmTest = { module = "dev.icerock.moko:mvvm-test", version.ref = "mokoMvvmVersion" }
-kotlinTestJUnit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinVersion" }
-androidCoreTesting = { module = "androidx.arch.core:core-testing", version.ref = "androidCoreTestingVersion" }
-
-
-kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
-androidGradlePlugin = { module = "com.android.tools.build:gradle", version = "agpVersion" }
-mokoGradlePlugin = { module = "dev.icerock.moko:moko-gradle-plugin", version = "0.2.0" }
-kotlinSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
-composeJetBrainsGradlePlugin = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "composeJetBrainsVersion" }
-detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.22.0" }
+#kotlinTestJUnit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlinVersion" }
+#androidCoreTesting = { module = "androidx.arch.core:core-testing", version.ref = "androidCoreTestingVersion" }
 
 [plugins]
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
 android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+native-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlinVersion" }
 android-library = { id = "com.android.library", version.ref = "agpVersion" }
 android-application = { id = "com.android.application", version.ref = "agpVersion" }
+vanniktech = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechVersion" }
+compose = { id = "org.jetbrains.compose", version.ref = "composeJetBrainsVersion" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+

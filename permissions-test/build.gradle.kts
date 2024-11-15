@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-
 /*
  * Copyright 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.
  */
@@ -7,20 +5,18 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("dev.icerock.moko.gradle.stub.javadoc")
-    id("dev.icerock.moko.gradle.detekt")
+    alias(libs.plugins.vanniktech)
 }
 kotlin {
     androidTarget()
     jvm("desktop")
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
     iosSimulatorArm64()
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(libs.coroutines)
-                api(projects.permissions)
+                api(project(":permissions"))
             }
         }
         val androidMain by getting {
@@ -36,6 +32,13 @@ kotlin {
     }
 }
 android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
     namespace = "dev.icerock.moko.permissions.test"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
