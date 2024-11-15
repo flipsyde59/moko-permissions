@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("dev.icerock.moko.gradle.publication")
     id("dev.icerock.moko.gradle.stub.javadoc")
     id("dev.icerock.moko.gradle.detekt")
     id("org.jetbrains.compose")
@@ -39,13 +38,25 @@ kotlin {
         val desktopMain by getting
     }
 }
+val GITHUB_USER: String by project
+val GITHUB_TOKEN: String by project
+publishing {
+    repositories {
+        maven {
+            setUrl("https://maven.pkg.github.com/flipsyde59/moko-permissions")
+            credentials {
+                username = GITHUB_USER
+                password = GITHUB_TOKEN
+            }
+        }
+    }
+}
 android {
     namespace = "dev.icerock.moko.permissions.compose"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 21
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
 }
 

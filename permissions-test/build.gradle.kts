@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
-    id("dev.icerock.moko.gradle.publication")
     id("dev.icerock.moko.gradle.stub.javadoc")
     id("dev.icerock.moko.gradle.detekt")
 }
@@ -41,7 +40,6 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
 }
 
