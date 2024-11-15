@@ -50,12 +50,15 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Release package to github
+      - name: Build
         run: ./gradlew assemble --stacktrace -PGITHUB_USER=${{ secrets.CURRENT_GITHUB_USER }} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release package to github
+        run: ./gradlew publishKotlinMultiplatformPublicationToMavenRepository -PGITHUB_USER=${{ secrets.CURRENT_GITHUB_USER }} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish To Maven Central
         run: |
-            ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
+            ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache -PGITHUB_USER=${{ secrets.CURRENT_GITHUB_USER }} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Create release
