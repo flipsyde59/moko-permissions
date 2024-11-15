@@ -4,7 +4,7 @@
 
 ```groovy
 dependencies {
-    implementation("io.github.flipsyde59:moko.permissions.compose:0.18.1-desktop")
+    implementation("io.github.flipsyde59:moko.permissions.compose:0.18.1-desktop-5")
 }
 ```
 
