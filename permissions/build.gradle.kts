@@ -32,6 +32,7 @@ kotlin {
         }
         val desktopMain by getting
     }
+    task("testClasses")
 }
 val GITHUB_USER: String by project
 val GITHUB_TOKEN: String by project
